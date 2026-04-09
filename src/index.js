@@ -1,22 +1,26 @@
+// ✅ IMPORTS (ONLY ONCE)
+import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/index.js";
-// import express from "express"; 
 import userRouter from "./routes/user.routes.js";
+import cookieParser from "cookie-parser";
 
+// ✅ CONFIG
 dotenv.config();
 
 console.log("ENV CHECK:", process.env.MONGODB_URI);
 
-
-import express from "express";
-
+// ✅ APP INIT
 const app = express();
 
+// ✅ MIDDLEWARES
 app.use(express.json());
+app.use(cookieParser());
 
-
+// ✅ ROUTES
 app.use("/api/v1/users", userRouter);
 
+// ✅ DB + SERVER
 connectDB()
   .then(() => {
     app.listen(process.env.PORT || 8000, () => {
@@ -28,14 +32,8 @@ connectDB()
   });
 
 
-
-
-
-
-
-
+// ❌ OLD CODE (COMMENTED)
 // import express from "express";
-
 // const app = express()
 // (async () => {
 //   try {
@@ -44,12 +42,9 @@ connectDB()
 //       console.log("ERRR:",error);
 //       throw error
 //     })
-
 //     app.listen(process.env.PORT,() => {
 //       console.log(`App is listening on port ${process.env.PORT}`)
 //     })
-
-    
 //   } catch(error){
 //     console.log("ERROR: ",error)
 //     throw err
