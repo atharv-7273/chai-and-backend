@@ -1,7 +1,19 @@
 import {Router} from "express";
-import { loginUser, logoutUser, registerUser,refreshAccessToken } from "../controllers/user.controller.js";
+import { 
+  loginUser,
+  logoutUser, 
+  registerUser,
+  refreshAccessToken, 
+  changeCurrentPassword,
+  getCurrentUser, 
+  updateUserAvatar, 
+  updateUserCoverImage,
+  getUserChannelProfile,
+  getWatchHistory
+   } from "../controllers/user.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { get } from "mongoose";
 
 const router = Router()
 
@@ -26,5 +38,17 @@ router.route("/login").post(loginUser)
 //secure routes
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/refresh-token").post(refreshAccessToken)
+
+router.route("/change-password").post(verifyJWT, changeCurrentPassword)
+
+router.route("/change-user").get(verifyJWT,getCurrentUser)
+router.route("/update-account").patch(verifyJWT, updateCurrentUser)
+
+router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateAvatar)
+router.route("/cover").patch(verifyJWT, upload.single("coverImage"), updateCoverImage)
+
+router.route("/c/:username").get
+(verifyJWT, getUserChannelProfile)
+router.route("/history").get(verifyJWT, getUserHistory)
 
 export default router
