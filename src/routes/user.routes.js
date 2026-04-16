@@ -44,11 +44,11 @@ router.route("/change-password").post(verifyJWT, changeCurrentPassword)
 router.route("/change-user").get(verifyJWT,getCurrentUser)
 router.route("/update-account").patch(verifyJWT, updateCurrentUser)
 
-router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateAvatar)
-router.route("/cover").patch(verifyJWT, upload.single("coverImage"), updateCoverImage)
+router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateUserAvatar)
+router.route("/cover-image").patch(verifyJWT, upload.single("coverImage"), updateUserCoverImage)
 
 router.route("/c/:username").get
 (verifyJWT, getUserChannelProfile)
-router.route("/history").get(verifyJWT, getUserHistory)
+router.route("/history").get(verifyJWT, getWatchHistory)
 
 export default router
